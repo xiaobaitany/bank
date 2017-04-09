@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>登录页</title>
+    <link rel="stylesheet" href="style/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style/Font-Awesome-master/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/main.css">   
+  </head>
+  <body>
+
+    <div class="login-bg">
+      <h1 class="login-h m-0">
+        <div class="bank-title">&nbsp;
+          <h4 class="login-title">行长驾驶舱</h4>
+        </div>
+      </h1>
+    </div>
+
+    <div class="login-container-fluid">
+      <div class="panel-default login-container">
+        <form action="" id="login-form">
+          <div class="control-group">
+            <input type="text" name="user_name" placeholder="用户名" class="form-control input-lg input-item" required>
+            <i class="fa"></i>
+          </div>
+          <div class="control-group">
+            <input type="password" name="pwd" placeholder="密码" class="form-control input-lg input-item" required>
+            <i class="fa"></i>
+          </div>
+          <div class="control-group">
+            <button type="submit" class="btn btn-block btn-lg" data-loading-text="登录中..." id="submit-btn">登录</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer">
+      昆山农商银行
+    </div>
+
+    <script type="text/javascript" src="style/jquery/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="style/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="style/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="style/validate/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="style/validate/messages_cn.js"></script>
+    <script type="text/javascript">
+      (function($){
+        $('#login-form').validate({
+          submitHandler: function(){
+            $('#submit-btn').button('loading');
+            $.ajax({
+                url : '',
+                data: $('#login-form').serialize(),
+                dataType: 'json',
+                success:function(data){
+                    
+                },
+                error:function(data){
+                    
+                }
+            })
+            .always(function(){
+              $('#submit-btn').button('reset');
+              $("#login-form").find("input")[0].focus();
+            });
+          }
+        });
+      }(jQuery))
+    </script>
+    <!--[if lte IE 9]>
+    <script type="text/javascript">
+      (function($){
+        $('.input-item').focus(function(){
+          $(this).prev().hide();
+        }).blur(function(){
+          if(this.value==='') {
+            $(this).prev().show();
+          } else {
+            $(this).prev().hide();
+          }
+        })
+        .each(function(index){
+          $('<div class="placeholder">'+ this.getAttribute('placeholder') +'</div>').prependTo($(this).parent());
+          this.removeAttribute('placeholder');
+          setTimeout($.proxy(function(){
+            this.focus();
+          },this));
+        });
+      }(jQuery))
+    </script>
+    <![endif]-->
+  </body>
+</html>

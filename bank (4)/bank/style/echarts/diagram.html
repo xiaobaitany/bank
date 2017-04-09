@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+	<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>实例</title>
+
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+
+    </head>
+	<body style="height: 100%;">
+		<h2>点击总览图里的各个流向纽带即可展示该纽带的桑基图详情，数据只需要修改js代码中data_1.links里source带agent的value值,其他的value值会自动计算</h2>
+		<div style="width: 500px; height: 300px;" id="sankey">
+			
+		</div>
+		<div style="width: 500px; height: 300px;" id="sankey-detail">
+			
+		</div>
+		<div style="width: 1000px; height: 600px;" id="sankey-1">
+			
+		</div>
+	</body>
+	<script>
+			//明细大图数据，数据只需要修改data_1.links里source带agent的value值,其他的value值会自动计算
+			var data_1 = {
+				"nodes":[
+						{"name": "10.168.0.1(agent_01)"},
+						{"name": "10.168.0.2(agent_02)"},
+						{"name": "10.168.0.3(agent_03)"},
+						{"name": "10.168.0.4(agent_04)"},
+						{"name": "10.168.0.5(agent_05)"},
+						{"name": "10.168.0.6(agent_06)"},
+						{"name": "10.168.0.7(agent_07)"},
+						{"name": "10.168.0.8(agent_08)"},
+						{"name": "10.168.0.9(agent_09)"},
+						{"name": "10.168.0.10(agent_10)"},
+						{"name": "10.168.0.11(agent_11)"},
+						{"name": "172.168.0.1(HRserver)"},
+						{"name": "172.168.0.3(DB)"},
+						{"name": "172.168.0.4(DB)"},
+						{"name": "172.168.0.5(DB)"},
+						{"name": "172.168.0.7(DB)"},
+						{"name": "172.168.0.9(DB)"},
+						{"name": "HDFS"}
+				],
+				"links":[
+						{"source": "10.168.0.1(agent_01)", "target": "172.168.0.1(HRserver)", "value": 100},//修改这些value即可
+						{"source": "10.168.0.2(agent_02)", "target": "172.168.0.1(HRserver)", "value": 100},
+						{"source": "10.168.0.3(agent_03)", "target": "172.168.0.1(HRserver)", "value": 100},
+						{"source": "10.168.0.4(agent_04)", "target": "172.168.0.4(DB)", "value": 100},
+						{"source": "10.168.0.5(agent_05)", "target": "172.168.0.5(DB)", "value": 100},
+						{"source": "10.168.0.6(agent_06)", "target": "172.168.0.1(HRserver)", "value": 100},
+						{"source": "10.168.0.7(agent_07)", "target": "172.168.0.7(DB)", "value": 100},
+						{"source": "10.168.0.8(agent_08)", "target": "172.168.0.1(HRserver)", "value": 100},
+						{"source": "10.168.0.9(agent_09)", "target": "172.168.0.9(DB)", "value": 100},
+						{"source": "10.168.0.10(agent_10)", "target": "172.168.0.1(HRserver)", "value": 100},
+						{"source": "10.168.0.11(agent_11)", "target": "172.168.0.3(DB)", "value": 100},
+						{"source": "172.168.0.1(HRserver)", "target": "HDFS", "value": 0},
+				]
+			};
+			//总览图数据
+			var data = {
+				"nodes":[
+						{"name": "agent"},
+						{"name": "DB"},
+						{"name": "HRserver"},
+						{"name": "HDFS"}
+				],
+				"links":[
+						{"source": "agent", "target": "DB", "value": 0},
+						{"source": "agent", "target": "HRserver", "value": 0},
+						{"source": "HRserver", "target": "HDFS", "value":0}
+				]
+			};
+
+			//计算总览图数据
+			data.links.forEach(function(v,i){
+				data_1.links.forEach(function(v1,k){
+					if(v1.source.indexOf('agent') != -1 && v1.target.indexOf(v.target) != -1){
+						v.value += v1.value;
+					}
+				});
+			});
+
+			//原始图表参数
+		    var option = {
+		        title: {
+		            text: ''
+		        },
+		        tooltip: {
+		            trigger: 'item',
+		            triggerOn: 'mousemove',
+		            formatter: function (params,ticket,callback){
+			        }
+		        },
+		        series: [
+		            {
+		                type: 'sankey',
+		                layout: 'none',
+		                data: data_1.nodes,
+		                links: data_1.links,
+		                nodeWidth: 50,/*矩形节点的宽度*/
+		                itemStyle: {
+		                    normal: {
+		                        borderWidth: 1,
+		                        borderColor: '#aaa'
+		                    }
+		                },
+		                lineStyle: {
+		                    normal: {
+		                        curveness: 0.5
+		                    }
+		                },
+		                label: {
+		                	normal: {
+		                		show: true,
+		                		position: 'insideLeft',
+		                		textStyle: {
+		                			color: '#000',
+		                			fontStyle: 'normal',
+		                			fontWeight: 'normal',
+		                			fontFamily: '宋体',
+		                			fontSize: 12
+		                		}
+		                	}
+		                }
+		            }
+		        ]
+		    };
+		   	function calcValue(data_1){
+			   	data_1.links.forEach(function(v,i){
+			   		data_1.nodes.forEach(function(n,k){
+			   			if(n.name == v.target){
+			   				data_1.links.forEach(function(s,w){
+			   					s.source == n.name && (s.value += v.value);	
+			   				});
+			   			}
+			   		});
+			   	});
+		   	}
+
+		   	//总览图展示
+		   	var chart = echarts.init(document.getElementById('sankey'));
+		   	calcValue(data);
+		   	var excel = JSON.parse(JSON.stringify(option));
+		   	excel.title.text = '总览';
+		   	excel.tooltip.formatter = function (params,ticket,callback){
+        		//console.log(params);
+        		if(params.dataType !== 'node'){
+               		return ' 流量从 ' + params.name.replace(' > ',' 流向 ')  + '：共 ' + params.data.value;
+        		} 
+        		var value = 0;
+        		var fluidOut = 0;
+    			data.links.forEach(function(v,i){
+    				v.target == params.name && (value += v.value);
+    				v.source == params.name && (fluidOut += v.value);
+    			});
+        		return params.name + ' 节点，流入： ' + value + ' ,流出： ' + fluidOut;
+            }
+
+		    excel.series[0].data = data.nodes;
+		    excel.series[0].links = data.links;
+		    chart.setOption(excel);
+
+		    //点击事件展示明细图
+		    chart.on('click', function (params) {
+		    	if(params.dataType == 'edge' || params.dataType == 'links'){
+					var arr = params.name.split(' > ');
+					var data = {"nodes": [],"links": []};
+					data_1.links.forEach(function(v1,k){
+						if(v1.source.indexOf(arr[0]) != -1 && v1.target.indexOf(arr[1]) != -1){
+							data.links.push(JSON.parse(JSON.stringify(v1)));
+							data.nodes.push({"name":v1.source});
+						}
+					});
+					var cache = {};
+					for (var i = 0 ; i < data.links.length; i++) {
+						if(!cache[data.links[i].target]){
+							data.nodes.push({"name":data.links[i].target});
+							cache[data.links[i].target] = 1;
+						}
+					};
+					var detailChart = echarts.init(document.getElementById('sankey-detail'));
+					var dOption = JSON.parse(JSON.stringify(option));
+					dOption.title.text = '明细图';
+				   	dOption.tooltip.formatter = function (params,ticket,callback){
+		        		if(params.dataType == 'edge' || params.dataType == 'links'){
+		               		return ' 流量从 ' + params.name.replace(' > ',' 流向 ')  + '：共 ' + params.data.value;
+		        		} 
+		        		var value = 0;
+		        		var fluidOut = 0;
+		    			data.links.forEach(function(v,i){
+		    				v.target == params.name && (value += v.value);
+		    				v.source == params.name && (fluidOut += v.value);
+		    			});
+		        		return params.name + ' 节点，流入： ' + value + ' ,流出： ' + fluidOut;
+		            }
+		            dOption.series[0].data = data.nodes;
+		            dOption.series[0].links = data.links;
+		            window.aaa = detailChart;
+		            window.ddd = dOption;
+		            detailChart.setOption(dOption);
+					console.log(data);
+		    	}
+			});
+
+		    //明细详情图展示
+			var chart_1 = echarts.init(document.getElementById('sankey-1'));
+		   	calcValue(data_1);
+		   	var excel_1 = JSON.parse(JSON.stringify(option));
+		   	excel_1.title.text = '明细详情图';
+		   	excel_1.tooltip.formatter = function (params,ticket,callback){
+        		//console.log(params);
+        		if(params.dataType !== 'node'){
+               		return ' 流量从 ' + params.name.replace(' > ',' 流向 ')  + '：共 ' + params.data.value;
+        		} 
+        		var value = 0;
+        		var fluidOut = 0;
+    			data_1.links.forEach(function(v,i){
+    				v.target == params.name && (value += v.value);
+    				v.source == params.name && (fluidOut += v.value);
+    			});
+        		return params.name + ' 节点，流入： ' + value + ' ,流出： ' + fluidOut;
+            }
+
+		    excel_1.series[0].data = data_1.nodes;
+		    excel_1.series[0].links = data_1.links;
+		    chart_1.setOption(excel_1);
+		    chart_1.on('click', function (params) {
+					//console.log(params)
+			});
+
+	</script>
+</html>

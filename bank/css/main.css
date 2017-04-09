@@ -1,0 +1,83 @@
+@charset "utf-8";
+html { font-size: 100px; }
+body{ font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei","SimHei"; font-weight:400; -webkit-font-smoothing:antialiased; overflow-x: hidden; }
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill,input:-webkit-autofill:focus, textarea:-webkit-autofill:focus, select:-webkit-autofill:focus { -webkit-box-shadow: 0 0 0 1000px white inset; transition: none; }
+button:focus,a:focus,a:hover,select:focus{ outline: none !important; text-decoration: none; }
+a,button,input,textarea{ -webkit-tap-highlight-color: rgba(0,0,0,0); }
+::-ms-clear{ display:none; } ::-ms-reveal{ display:none; }
+.stretch{ padding-left: 0; padding-right: 0; position: relative; }
+.stretch:after, .stretch:before { display: table; content: " "; }
+.stretch:after { clear: both; }
+.text-ellipsis{ overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.block{ display: block; }
+.inline-block{ display: inline-block; }
+.table-cell{ display: table-cell; }
+.v-middle { vertical-align: middle; }
+.v-bottom { vertical-align: bottom; }
+.font-xs { font-size: 12px; }
+.font-15 { font-size: 15px; }
+.font-16 { font-size: 16px; }
+.font-18 { font-size: 18px; }
+.font-20 { font-size: 20px; }
+.font-25 { font-size: 25px; }
+.w-100p{ width: 100% !important; }
+.h-100p { height: 100%; }
+.color-white{ color: #fff !important; }
+.color-white a{ color: #fff !important; }
+.color-e33{ color: #e33; }
+.color-333{ color: #333; }
+.color-theme{ color: #2d87ea !important; }
+.color-theme a{ color: #2d87ea !important; }
+.border-theme { border-color: #2d87ea !important; }
+.border-0{ border: 0 !important; }
+.bg-white{ background-color: #fff !important; }
+.bg-theme{ background-color: #2d87ea !important; }
+.bg-eee{ background-color: #eee !important; }
+.bg-tspt{ background-color: transparent !important; }
+.br-12{ border-radius: 12px !important; }
+.ov-h{ overflow: hidden !important; }
+.ov-auto{ overflow: auto !important; }
+.nowrap{ white-space: nowrap !important; }
+.fly-out{ position: fixed; top: -10000px; left: 0; }
+.m-auto{ margin-left: auto; margin-right: auto; }
+.m-0{ margin: 0 !important; }
+.mx-10{ margin-left: 10px !important; margin-right: 10px !important; }
+.mx-fix5{ margin-left: -5px !important; margin-right: -5px !important; }
+.mt-3{ margin-top: 3px !important; }
+.mt-7{ margin-top: 7px !important; }
+.mt-10{ margin-top: 10px !important; }
+.mt-12{ margin-top: 12px !important; }
+.mt-20{ margin-top: 20px !important; }
+.mb-0{ margin-bottom: 0 !important; }
+.mb-5{ margin-bottom: 5px !important; }
+.mb-25{ margin-bottom: 25px !important; }
+.mb-145{ margin-bottom: 145px !important; }
+.my-10 { margin-top: 10px; margin-bottom: 10px; }
+.p-0{ padding: 0 !important; }
+.p-10{ padding: 10px !important; }
+.p-15{ padding: 15px !important; }
+.pl-10{ padding-left: 10px !important; }
+.pl-20{ padding-left: 20px !important; }
+.px-5{ padding-left: 5px !important; padding-right: 5px !important; }
+.px-50{ padding-left: 50px !important; padding-right: 50px !important; }
+.py-5{ padding-top: 5px !important; padding-bottom: 5px !important; }
+.gap-2 { line-height: 2; }
+
+label.error { color: #e33; }
+
+/*登录，替换这段css即可*/
+html,body { height: 100%; }
+.login-h{ height: 100%; text-align: center; font-weight: 600; font-size: 40px; }
+.login-h .bank-title{ height: 100%; background: url(../images/bank_title.png) no-repeat center; vertical-align: middle; width: 1170px; margin: auto; position: relative; }
+.login-bg { background-image: url(../images/login_bg.png); background-size: 100% 100%; height: 48%; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/login_bg.png', sizingMethod='scale'); }
+.login-container-fluid { width: 1170px; margin: auto; text-align: center; }
+.login-title { font-size: 22px; line-height: 2.5em; font-weight: 600; color: #fff; font-style: italic; position: absolute; top: 50%; margin-top: 0; width: 100%; }
+.login-container { width: 380px; padding: 45px 18px 38px; background-color: #fff; text-align: left; display: inline-block; }
+.control-group{ position: relative; }
+.control-group label.error{ position: absolute; bottom: -1.5em; margin-bottom: 0; }
+.placeholder { position: absolute; top: 13px; left: 18px; color: #999; }
+.input-item{ padding-right: 2em; margin-bottom: 1.3em; border-color: #efefef; box-shadow: 0 0 3px 0 #ddd; border-radius: 2px; font-size: 16px; position: relative; z-index: 10; background-color: transparent; }
+.input-item + i.fa,.input-item + label + i.fa{ position: absolute; right: 15px; top: 50%; margin-top: -15px; height: 29px; color: #999; width: 24px; text-align: center; transition: color ease-in-out .15s; background: transparent url(../images/login_tag.png) no-repeat -14px center; }
+.input-item[type="password"] + i.fa,.input-item[type="password"] + label + i.fa{ background-position: -84px center; }
+#submit-btn { background-color: #e33; color: #fff; font-size: 20px; padding: 8px 30px; background-color: #ba4634; margin-top: 40px; }
+.footer { text-align: center; margin-top: 90px; font-size: 16px; position: absolute; bottom: 0; width: 100%; line-height: 2.5em; background-color: #f5f6fa; }
